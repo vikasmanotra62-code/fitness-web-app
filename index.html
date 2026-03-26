@@ -3,70 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FitPro MAX - Advanced Dashboard</title>
+    <title>FitPro MAX - Premium Web App</title>
     <style>
         :root {
-            --primary: #1e293b; --accent: #10b981; --timer-bg: #ef4444;
+            --primary: #0f172a; --accent: #10b981; --timer-bg: #ef4444;
             --bmi-bg: #3b82f6; --water-bg: #0ea5e9; --bmr-bg: #8b5cf6;
-            --cal-bg: #f59e0b; --bg-light: #f8fafc;
+            --bg-light: #f8fafc; --text-main: #1e293b;
         }
 
-        body { font-family: 'Inter', sans-serif; background: var(--bg-light); margin: 0; color: #1e293b; padding-bottom: 50px; }
-        header { background: var(--primary); color: white; padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); sticky: top; z-index: 100; }
-        .logo { font-size: 1.5rem; font-weight: 800; }
-        .lang-btn { background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.2); padding: 8px 12px; border-radius: 8px; cursor: pointer; }
+        body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg-light); margin: 0; color: var(--text-main); padding-bottom: 50px; }
+        
+        /* Modern Header */
+        header { background: var(--primary); color: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 12px rgba(0,0,0,0.15); position: sticky; top: 0; z-index: 1000; }
+        .logo { font-size: 1.4rem; font-weight: 800; letter-spacing: -0.5px; }
+        .lang-select { background: rgba(255,255,255,0.15); color: white; border: 1px solid rgba(255,255,255,0.3); padding: 8px 12px; border-radius: 10px; cursor: pointer; font-weight: 600; outline: none; }
+        .lang-select option { background: var(--primary); color: white; }
 
-        .ad-container { background: #fff; border: 1px dashed #cbd5e1; margin: 15px auto; width: 90%; max-width: 728px; min-height: 90px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #94a3b8; border-radius: 12px; }
+        /* Ad Slots */
+        .ad-container { background: #fff; border: 1px dashed #cbd5e1; margin: 15px auto; width: 92%; max-width: 728px; min-height: 80px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #94a3b8; border-radius: 15px; }
 
+        /* Dashboard Grid */
         .dashboard { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; padding: 20px; max-width: 1200px; margin: 0 auto; }
         
-        .card { background: white; border-radius: 24px; padding: 25px; box-shadow: 0 10px 15px rgba(0,0,0,0.05); border-top: 6px solid #ddd; transition: 0.3s; }
+        .card { background: white; border-radius: 28px; padding: 25px; box-shadow: 0 10px 25px rgba(0,0,0,0.03); border-top: 6px solid #e2e8f0; transition: 0.3s; border-bottom: 1px solid #f1f5f9; }
         .card.timer { border-top-color: var(--timer-bg); }
         .card.bmi { border-top-color: var(--bmi-bg); }
         .card.bmr { border-top-color: var(--bmr-bg); }
         .card.water { border-top-color: var(--water-bg); }
 
-        input, select { width: 100%; padding: 14px; margin: 10px 0; border: 1px solid #e2e8f0; border-radius: 12px; background: #f1f5f9; font-size: 16px; }
-        button { width: 100%; padding: 15px; border: none; border-radius: 12px; color: white; font-weight: 700; cursor: pointer; font-size: 16px; }
+        input, select { width: 100%; padding: 14px; margin: 10px 0; border: 1px solid #e2e8f0; border-radius: 14px; background: #f1f5f9; font-size: 16px; box-sizing: border-box; }
+        button { width: 100%; padding: 15px; border: none; border-radius: 14px; color: white; font-weight: 700; cursor: pointer; font-size: 16px; transition: 0.2s; }
+        button:active { transform: scale(0.97); }
 
-        .timer-circle { width: 130px; height: 130px; border-radius: 50%; border: 8px solid #fee2e2; margin: 20px auto; display: flex; align-items: center; justify-content: center; font-size: 2.8rem; font-weight: 800; color: var(--timer-bg); }
+        .timer-circle { width: 120px; height: 120px; border-radius: 50%; border: 6px solid #fee2e2; margin: 20px auto; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; font-weight: 800; color: var(--timer-bg); }
 
-        /* Insight Cards (As per your Images) */
+        /* Insight Cards */
         .insights-section { max-width: 1200px; margin: 20px auto; padding: 0 20px; }
-        .insight-card { border-radius: 24px; padding: 25px; margin-bottom: 20px; border: 1px solid rgba(0,0,0,0.05); }
-        .insight-blue { background: #e8f0fe; }
-        .insight-green { background: #e6f4ea; }
-        .insight-purple { background: #f3e8fd; }
-        .insight-yellow { background: #fef7e0; }
-        .chip { display: inline-block; padding: 5px 15px; border-radius: 20px; font-size: 12px; font-weight: 700; margin-bottom: 15px; }
+        .insight-card { border-radius: 24px; padding: 25px; margin-bottom: 20px; border: 1px solid rgba(0,0,0,0.03); }
+        .insight-blue { background: #eff6ff; } .insight-green { background: #f0fdf4; }
+        .insight-purple { background: #faf5ff; } .insight-yellow { background: #fffbeb; }
+        .chip { display: inline-block; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 800; margin-bottom: 15px; text-transform: uppercase; }
 
-        .result { margin-top: 15px; padding: 12px; border-radius: 10px; background: #f0fdf4; color: #166534; font-weight: 600; display: none; }
+        .result { margin-top: 15px; padding: 15px; border-radius: 12px; background: #f0fdf4; color: #166534; font-weight: 700; display: none; text-align: center; }
+        footer { text-align: center; padding: 40px; color: #94a3b8; font-size: 0.85rem; }
     </style>
 </head>
 <body>
 
 <header>
     <div class="logo">FitPro <span style="color:var(--accent)">MAX</span></div>
-    <select class="lang-btn" id="lang" onchange="updateLang()">
-        <option value="en">English</option><option value="hi">हिन्दी</option>
-        <option value="mr">मराठी</option><option value="es">Español</option>
+    <select class="lang-select" id="lang" onchange="updateLang()">
+        <option value="en">Language 🌐</option>
+        <option value="en">English</option>
+        <option value="hi">हिन्दी</option>
+        <option value="mr">मराठी</option>
+        <option value="es">Español</option>
     </select>
 </header>
 
-<div class="ad-container">Banner Ad Space (Top)</div>
+<div class="ad-container">Banner Ad Slot (Top)</div>
 
 <div class="dashboard">
     <div class="card timer">
         <h3 id="l-timer">🏋️ Workout Timer</h3>
         <select id="ex">
-            <option value="0">Pushups (Chest)</option>
-            <option value="1">Squats (Legs)</option>
-            <option value="2">Plank (Core)</option>
-            <option value="3">Jumping Jacks</option>
-            <option value="4">Burpees</option>
-            <option value="5">Lunges</option>
-            <option value="6">Mountain Climbers</option>
-            <option value="7">Crunches</option>
+            <option value="0">Pushups</option><option value="1">Squats</option>
+            <option value="2">Plank</option><option value="3">Jumping Jacks</option>
+            <option value="4">Burpees</option><option value="5">Lunges</option>
         </select>
         <div class="timer-circle" id="time">30</div>
         <button style="background:var(--timer-bg)" onclick="startTimer()" id="b-timer">Start Workout</button>
@@ -83,6 +86,22 @@
 
 <div class="ad-container" style="min-height: 250px; border-color: #f59e0b; color: #f59e0b;">🔥 Native Ad Space</div>
 
+<div class="insights-section">
+    <h2 id="l-insight-title" style="padding-left:10px;">Daily Insights</h2>
+    
+    <div class="insight-card insight-blue">
+        <div class="chip" style="background:#dbeafe; color:#1d4ed8;" id="c-move">Movement</div>
+        <h3 id="i-step-t">The 10,000 Steps Myth</h3>
+        <p id="i-step-p">You don't need exactly 10,000 steps — any increase helps. Research shows 7,000-8,000 steps are enough.</p>
+    </div>
+
+    <div class="insight-card insight-green">
+        <div class="chip" style="background:#dcfce7; color:#15803d;" id="c-nut">Nutrition</div>
+        <h3 id="i-nut-t">Protein Timing Matters</h3>
+        <p id="i-nut-p">Spread protein intake (20-40g per meal) across your day for maximum muscle recovery.</p>
+    </div>
+</div>
+
 <div class="dashboard">
     <div class="card bmr">
         <h3 id="l-bmr">🧬 BMR Calculator</h3>
@@ -94,66 +113,75 @@
 
     <div class="card water">
         <h3 id="l-water">💧 Water Tracker</h3>
-        <input type="number" id="wa" placeholder="Your Age">
+        <input type="number" id="wa" placeholder="Age">
         <button style="background:var(--water-bg)" onclick="calcWater()" id="b-water">Daily Goal</button>
         <div id="r-water" class="result"></div>
     </div>
 </div>
 
-<div class="insights-section">
-    <h2 style="padding-left:10px;">Daily Insights</h2>
-    
-    <div class="insight-card insight-blue">
-        <div class="chip" style="background:#d2e3fc; color:#1967d2;">Movement</div>
-        <h3>The 10,000 Steps Myth</h3>
-        <p>You don't need exactly 10,000 steps — any increase helps. Research shows 7,000-8,000 steps significantly reduces risks.</p>
-    </div>
-
-    <div class="insight-card insight-green">
-        <div class="chip" style="background:#ceead6; color:#137333;">Nutrition</div>
-        <h3>Protein Timing Matters</h3>
-        <p>Spread protein intake (20-40g per meal) across 3-4 meals for maximum muscle gain and synthesis.</p>
-    </div>
-
-    <div class="insight-card insight-purple">
-        <div class="chip" style="background:#f3e8fd; color:#8b5cf6;">Recovery</div>
-        <h3>Sleep is Your Best Tool</h3>
-        <p>Muscles grow while you sleep. Aim for 7-9 hours to release growth hormones and repair tissue.</p>
-    </div>
-
-    <div class="insight-card insight-yellow">
-        <div class="chip" style="background:#fef7e0; color:#b45309;">Hydration</div>
-        <h3>Hydration Boosts Focus</h3>
-        <p>Even 1% dehydration drops focus and strength. Drink consistently throughout the day for peak performance.</p>
-    </div>
-</div>
-
 <div class="ad-container">Banner Ad Space (Bottom)</div>
 
+<footer>
+    FitPro Max Premium v3.5 • High Performance Web App <br>
+    &copy; 2026 Developed by Yuvi
+</footer>
+
 <script>
-    const ui = {
-        en: { timer: "Workout Timer", bmi: "BMI Calculator", bmr: "BMR Calculator", water: "Water Tracker", b: "Check Now", start: "Start Workout" },
-        hi: { timer: "कसरत टाइमर", bmi: "बीएमआई जांचें", bmr: "बीएमआर कैलकुलेटर", water: "पानी का लक्ष्य", b: "अभी जांचें", start: "शुरू करें" }
+    const translations = {
+        en: { 
+            timer: "Workout Timer", start: "Start Workout", bmi: "BMI Calculator", check: "Calculate BMI", bmr: "BMR Calculator", 
+            water: "Water Tracker", goal: "Daily Goal", insight: "Daily Insights", move: "Movement", nut: "Nutrition",
+            stepT: "The 10,000 Steps Myth", stepP: "Any increase helps. 7,000-8,000 steps are enough.",
+            nutT: "Protein Timing Matters", nutP: "Spread protein intake (20-40g per meal) for recovery."
+        },
+        hi: { 
+            timer: "कसरत टाइमर", start: "कसरत शुरू करें", bmi: "बीएमआई कैलकुलेटर", check: "बीएमआई जांचें", bmr: "बीएमआर कैलकुलेटर", 
+            water: "पानी ट्रैकर", goal: "दैनिक लक्ष्य", insight: "दैनिक जानकारी", move: "गतिविधि", nut: "पोषण",
+            stepT: "10,000 कदम का भ्रम", stepP: "हर कदम मायने रखता है। 7,000-8,000 कदम काफी हैं।",
+            nutT: "प्रोटीन का सही समय", nutP: "रिकवरी के लिए हर भोजन में 20-40 ग्राम प्रोटीन लें।"
+        },
+        mr: { 
+            timer: "व्यायाम टायमर", start: "सुरू करा", bmi: "बीएमआय कॅल्क्युलेटर", check: "तपासा", bmr: "बीएमआर कॅल्क्युलेटर", 
+            water: "पाण्याचे ध्येय", goal: "दैनिक लक्ष्य", insight: "दैनिक माहिती", move: "हालचाल", nut: "पोषण",
+            stepT: "१०,००० पावलांचा भ्रम", stepP: "७,०००-८,००० पावले सुद्धा आरोग्यासाठी उत्तम आहेत.",
+            nutT: "प्रोटीनची योग्य वेळ", nutP: "स्नायूंच्या वाढीसाठी प्रत्येक जेवणात प्रोटीन घ्या."
+        },
+        es: { 
+            timer: "Temporizador", start: "Empezar", bmi: "Calculadora IMC", check: "Calcular", bmr: "Calculadora TMB", 
+            water: "Meta de Agua", goal: "Meta Diaria", insight: "Información Diaria", move: "Movimiento", nut: "Nutrición",
+            stepT: "El mito de los 10k pasos", stepP: "Cualquier aumento ayuda. 7,000 pasos son suficientes.",
+            nutT: "Tiempo de Proteína", nutP: "Distribuya la proteína (20-40g) para la recuperación."
+        }
     };
 
-    function startTimer() {
-        let s = 30;
-        let t = document.getElementById('time');
-        let select = document.getElementById('ex');
-        let btn = document.getElementById('b-timer');
-        btn.disabled = true;
+    function updateLang() {
+        let l = document.getElementById('lang').value;
+        let t = translations[l];
+        document.getElementById('l-timer').innerText = "🏋️ " + t.timer;
+        document.getElementById('b-timer').innerText = t.start;
+        document.getElementById('l-bmi').innerText = "⚖️ " + t.bmi;
+        document.getElementById('b-bmi').innerText = t.check;
+        document.getElementById('l-bmr').innerText = "🧬 " + t.bmr;
+        document.getElementById('b-bmr').innerText = t.check;
+        document.getElementById('l-water').innerText = "💧 " + t.water;
+        document.getElementById('b-water').innerText = t.goal;
+        document.getElementById('l-insight-title').innerText = t.insight;
+        document.getElementById('c-move').innerText = t.move;
+        document.getElementById('c-nut').innerText = t.nut;
+        document.getElementById('i-step-t').innerText = t.stepT;
+        document.getElementById('i-step-p').innerText = t.stepP;
+        document.getElementById('i-nut-t').innerText = t.nutT;
+        document.getElementById('i-nut-p').innerText = t.nutP;
+    }
 
-        let i = setInterval(() => {
+    function startTimer() {
+        let s = 30; let t = document.getElementById('time');
+        let sel = document.getElementById('ex');
+        let interval = setInterval(() => {
             s--; t.innerText = s;
             if(s <= 0){ 
-                clearInterval(i); 
-                alert("Exercise Complete!"); 
-                t.innerText = "30"; 
-                btn.disabled = false;
-                
-                // AUTO NEXT LOGIC
-                let nextIdx = (parseInt(select.value) + 1) % select.options.length;
-                select.value = nextIdx; 
+                clearInterval(interval); alert("Done!"); t.innerText = "30"; 
+                sel.value = (parseInt(sel.value) + 1) % sel.options.length; 
             }
         }, 1000);
     }
@@ -176,7 +204,7 @@
 
     function calcWater() {
         let r = document.getElementById('r-water');
-        r.style.display="block"; r.innerText="Goal: 3.5 Liters";
+        r.style.display="block"; r.innerText="Target: 3.5 L";
     }
 </script>
 </body>
