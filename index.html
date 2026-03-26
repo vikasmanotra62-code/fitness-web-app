@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness Pro Web App</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-align: center; padding: 20px; background-color: #f0f2f5; color: #333; }
+        .container { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); display: inline-block; max-width: 400px; width: 90%; margin-top: 20px; }
+        h1 { color: #2c3e50; }
+        input { padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; width: 100%; box-sizing: border-box; font-size: 16px; }
+        button { padding: 12px; background: #27ae60; color: white; border: none; border-radius: 8px; cursor: pointer; width: 100%; font-size: 18px; font-weight: bold; margin-top: 10px; }
+        button:hover { background: #219150; }
+        #ad-slot { margin: 20px auto; min-height: 100px; border: 2px dashed #3498db; background: #ebf5fb; display: flex; align-items: center; justify-content: center; color: #3498db; font-weight: bold; border-radius: 10px; }
+        .result-box { margin-top: 20px; padding: 15px; border-radius: 8px; background: #e8f8f5; color: #117a65; font-weight: bold; display: none; }
+    </style>
+</head>
+<body>
+
+    <h1>Fitness Pro Web</h1>
+
+    <div id="ad-slot">
+        🚀 Ads Loading Space (Earning Area)
+    </div>
+
+    <div class="container">
+        <h3>BMI Calculator</h3>
+        <p style="font-size: 14px; color: #666;">Apna wajan aur height daalein</p>
+        
+        <input type="number" id="weight" placeholder="Wajan (kg) jaise: 70">
+        <input type="number" id="height" placeholder="Height (cm) jaise: 170">
+        
+        <button onclick="calculate()">BMI Check Karein</button>
+        
+        <div id="result-box" class="result-box">
+            <span id="bmi-val"></span>
+            <br>
+            <span id="bmi-msg"></span>
+        </div>
+    </div>
+
+    <script>
+        function calculate() {
+            let w = document.getElementById('weight').value;
+            let h = document.getElementById('height').value / 100;
+            
+            if(w > 0 && h > 0) {
+                let bmi = (w / (h * h)).toFixed(2);
+                let msg = "";
+                let color = "";
+
+                if(bmi < 18.5) { msg = "Aapka wajan kam hai (Underweight)"; color = "#f39c12"; }
+                else if(bmi < 25) { msg = "Badhiya! Aap fit hain (Normal)"; color = "#27ae60"; }
+                else { msg = "Wajan thoda zyada hai (Overweight)"; color = "#e74c3c"; }
+
+                let resBox = document.getElementById('result-box');
+                resBox.style.display = "block";
+                resBox.style.backgroundColor = color + "22"; // Light version of color
+                resBox.style.color = color;
+                
+                document.getElementById('bmi-val').innerText = "BMI: " + bmi;
+                document.getElementById('bmi-msg').innerText = msg;
+            } else {
+                alert("Kripya sahi detail daalein!");
+            }
+        }
+    </script>
+
+</body>
+</html>
+
