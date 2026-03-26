@@ -3,168 +3,141 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FitPro Max - Premium Dashboard</title>
+    <title>FitPro Max - Premium Mobile UI</title>
     <style>
         :root {
-            --primary: #1e293b;
-            --accent: #10b981;
-            --timer-bg: #ef4444;
-            --bmi-bg: #3b82f6;
-            --water-bg: #0ea5e9;
-            --bmr-bg: #8b5cf6;
-            --cal-bg: #f59e0b;
-            --bg-light: #f8fafc;
+            --primary: #1a73e8;
+            --bg: #f1f3f4;
+            --white: #ffffff;
+            --text: #202124;
         }
-
-        body { font-family: 'Inter', sans-serif; background: var(--bg-light); margin: 0; color: #1e293b; }
+        body { font-family: 'Segoe UI', Roboto, sans-serif; background: var(--bg); margin: 0; color: var(--text); padding-bottom: 30px; }
         
-        /* Header & Navigation */
-        header { background: var(--primary); color: white; padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
-        .logo { font-size: 1.5rem; font-weight: 800; letter-spacing: -1px; }
-        .lang-btn { background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.2); padding: 8px 12px; border-radius: 8px; cursor: pointer; }
+        /* Premium Header */
+        header { background: var(--white); padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #dadce0; sticky: top; }
+        .logo { font-size: 20px; font-weight: 700; color: var(--primary); display: flex; align-items: center; gap: 8px; }
+        .lang-select { padding: 6px 10px; border-radius: 8px; border: 1px solid #dadce0; font-size: 14px; outline: none; }
 
-        /* Ads Slots - Professional Styling */
-        .ad-container { background: #fff; border: 1px dashed #cbd5e1; margin: 15px auto; width: 90%; max-width: 728px; min-height: 90px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #94a3b8; border-radius: 12px; }
+        .container { max-width: 500px; margin: 0 auto; padding: 15px; }
 
-        /* Dashboard Layout */
-        .dashboard { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; padding: 20px; max-width: 1200px; margin: 0 auto; }
+        /* Banner Ads Styling */
+        .ad-space { background: #fff; border: 1px dashed #4285f4; margin: 10px 0 20px; border-radius: 12px; min-height: 60px; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #4285f4; }
+
+        /* Feature Cards (User Photo Style) */
+        .section-title { font-size: 16px; font-weight: 600; margin: 20px 0 12px 5px; color: #5f6368; text-transform: uppercase; letter-spacing: 0.5px; }
         
-        /* Feature Cards */
-        .card { background: white; border-radius: 20px; padding: 25px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05); border-top: 5px solid #ddd; transition: transform 0.2s; }
-        .card:hover { transform: translateY(-5px); }
-        .card h3 { margin-top: 0; font-size: 1.25rem; display: flex; align-items: center; gap: 10px; }
+        .card { background: var(--white); border-radius: 24px; padding: 20px; margin-bottom: 16px; box-shadow: 0 1px 3px rgba(60,64,67,0.1), 0 1px 2px rgba(60,64,67,0.15); border: 1px solid #fff; }
+
+        /* Workout Row Styling */
+        .workout-item { display: flex; align-items: center; gap: 16px; }
+        .icon-gradient { width: 56px; height: 56px; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 26px; box-shadow: inset 0 -4px 10px rgba(0,0,0,0.05); }
+        .workout-content { flex: 1; }
+        .workout-content h4 { margin: 0 0 4px; font-size: 17px; color: #202124; }
+        .workout-content p { margin: 0; font-size: 13px; color: #70757a; }
+        .start-btn { background: #202124; color: white; border: none; padding: 10px 20px; border-radius: 25px; font-weight: 600; font-size: 14px; cursor: pointer; transition: 0.2s; }
+        .start-btn:active { transform: scale(0.95); opacity: 0.8; }
+
+        /* Health Tip Styles (Matching your images) */
+        .tip-card { border-radius: 24px; padding: 24px; margin-bottom: 16px; border: 1px solid rgba(0,0,0,0.03); }
+        .tip-blue { background: #e8f0fe; }
+        .tip-green { background: #e6f4ea; }
+        .tip-purple { background: #f3e8fd; }
         
-        /* Color Borders */
-        .card.timer { border-top-color: var(--timer-bg); }
-        .card.bmi { border-top-color: var(--bmi-bg); }
-        .card.water { border-top-color: var(--water-bg); }
-        .card.bmr { border-top-color: var(--bmr-bg); }
-        .card.cal { border-top-color: var(--cal-bg); }
+        .chip { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; margin-bottom: 12px; }
 
-        /* Inputs & Buttons */
-        input, select { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #e2e8f0; border-radius: 12px; box-sizing: border-box; background: #f1f5f9; }
-        button { width: 100%; padding: 14px; border: none; border-radius: 12px; color: white; font-weight: 700; cursor: pointer; transition: opacity 0.2s; }
-        button:active { transform: scale(0.98); }
+        /* Tool Inputs */
+        .tool-input { width: 100%; padding: 14px; margin: 8px 0; border: 1px solid #dadce0; border-radius: 14px; font-size: 16px; transition: 0.3s; background: #f8f9fa; }
+        .tool-input:focus { border-color: var(--primary); background: #fff; outline: none; }
+        .action-btn { width: 100%; padding: 14px; background: var(--primary); color: white; border: none; border-radius: 14px; font-weight: bold; font-size: 16px; margin-top: 10px; cursor: pointer; }
 
-        /* Timer UI */
-        .timer-circle { width: 120px; height: 120px; border-radius: 50%; border: 6px solid #fee2e2; margin: 20px auto; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; font-weight: 800; color: var(--timer-bg); }
-
-        .result { margin-top: 15px; padding: 12px; border-radius: 10px; background: #f0fdf4; color: #166534; font-weight: 600; font-size: 0.95rem; display: none; }
-
-        footer { text-align: center; padding: 40px; color: #64748b; font-size: 0.9rem; }
+        footer { text-align: center; padding: 30px; color: #bdc1c6; font-size: 12px; }
     </style>
 </head>
 <body>
 
 <header>
-    <div class="logo">FitPro <span style="color:var(--accent)">MAX</span></div>
-    <select class="lang-btn" id="lang" onchange="updateLang()">
+    <div class="logo"><span>⚡</span> FitPro Max</div>
+    <select class="lang-select" id="langChanger">
         <option value="en">English</option>
         <option value="hi">हिन्दी</option>
         <option value="mr">मराठी</option>
-        <option value="es">Español</option>
     </select>
 </header>
 
-<div class="ad-container">Banner Ad Space (Top)</div>
-
-<div class="dashboard">
+<div class="container">
     
-    <div class="card timer">
-        <h3 id="l-timer">🏋️ Workout Timer</h3>
-        <select id="ex"><option value="Pushups">Pushups</option><option value="Plank">Plank</option></select>
-        <div class="timer-circle" id="time">30</div>
-        <button style="background:var(--timer-bg)" onclick="startTimer()" id="b-timer">Start Workout</button>
+    <div class="ad-space">🚀 Small Banner Ad Slot (320x50)</div>
+
+    <div class="section-title">Quick Workouts</div>
+    <div class="card">
+        <div class="workout-item">
+            <div class="icon-gradient" style="background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);">🔥</div>
+            <div class="workout-content">
+                <h4>7-Minute HIIT</h4>
+                <p>⏱ 7 min • 🔥 ~80 cal</p>
+            </div>
+            <button class="start-btn" onclick="triggerTimer('HIIT Workout')">Start ></button>
+        </div>
+        <div id="countdown" style="display:none; text-align:center; font-size:40px; color:#ea4335; margin-top:15px; font-weight:bold;">30</div>
     </div>
 
-    <div class="card bmi">
-        <h3 id="l-bmi">⚖️ BMI Calculator</h3>
-        <input type="number" id="w" placeholder="Weight (kg)">
-        <input type="number" id="h" placeholder="Height (cm)">
-        <button style="background:var(--bmi-bg)" onclick="calcBMI()" id="b-bmi">Calculate BMI</button>
-        <div id="r-bmi" class="result"></div>
+    <div class="section-title">Daily Insights</div>
+    
+    <div class="tip-card tip-blue">
+        <div class="chip" style="background:#d2e3fc; color:#1967d2;">Hydration</div>
+        <h3 style="margin:0 0 10px;">Water Boosts Focus</h3>
+        <p style="margin:0; font-size:14px; color:#5f6368; line-height:1.5;">Mild dehydration can drop energy levels. Drink water consistently throughout the day.</p>
     </div>
 
-    <div class="ad-container" style="min-height: 250px; border-color: #f59e0b; color: #f59e0b;">
-        🔥 Native (Nadi) Ad - User's Main View Area
+    <div class="ad-space" style="min-height: 180px; border-color: #e67e22; color: #e67e22;">🔥 BIG NATIVE AD (Nadi Ad Slot)</div>
+
+    <div class="tip-card tip-green">
+        <div class="chip" style="background:#ceead6; color:#137333;">Nutrition</div>
+        <h3 style="margin:0 0 10px;">The Protein Rule</h3>
+        <p style="margin:0; font-size:14px; color:#5f6368; line-height:1.5;">Aim for 20-40g of protein per meal to maximize muscle recovery and growth.</p>
     </div>
 
-    <div class="card bmr">
-        <h3 id="l-bmr">🧬 BMR Calculator</h3>
-        <input type="number" id="bw" placeholder="Weight (kg)">
-        <input type="number" id="bh" placeholder="Height (cm)">
-        <input type="number" id="ba" placeholder="Age">
-        <button style="background:var(--bmr-bg)" onclick="calcBMR()" id="b-bmr">Check BMR</button>
-        <div id="r-bmr" class="result"></div>
-    </div>
-
-    <div class="card water">
-        <h3 id="l-water">💧 Water Tracker</h3>
-        <input type="number" id="wa" placeholder="Your Age">
-        <button style="background:var(--water-bg)" onclick="calcWater()" id="b-water">Daily Goal</button>
-        <div id="r-water" class="result"></div>
+    <div class="section-title">Health Tools</div>
+    <div class="card">
+        <h3 style="margin-top:0;">BMI Calculator</h3>
+        <input type="number" id="w" class="tool-input" placeholder="Wajan (kg) jaise: 70">
+        <input type="number" id="h" class="tool-input" placeholder="Height (cm) jaise: 170">
+        <button class="action-btn" onclick="calculateBMI()">Check My BMI</button>
+        <p id="bmi-res" style="text-align:center; margin-top:15px; font-weight:bold; color:var(--primary);"></p>
     </div>
 
 </div>
 
-<div class="ad-container">Banner Ad Space (Bottom)</div>
-
 <footer>
-    FitPro Max Premium v2.0 <br>
-    Built for Chrome Performance & High Earnings
+    FitPro Max Premium v3.0 <br>
+    Built for High Earning Adsterra Placement
 </footer>
 
 <script>
-    const ui = {
-        en: { timer: "Workout Timer", bmi: "BMI Calculator", bmr: "BMR Calculator", water: "Water Tracker", b: "Check Now", start: "Start Workout" },
-        hi: { timer: "कसरत टाइमर", bmi: "बीएमआई जांचें", bmr: "बीएमआर कैलकुलेटर", water: "पानी का लक्ष्य", b: "अभी जांचें", start: "शुरू करें" },
-        mr: { timer: "व्यायाम टायमर", bmi: "बीएमआय तपासा", bmr: "बीएमआर कॅल्क्युलेटर", water: "पाण्याचे ध्येय", b: "तपासा", start: "सुरू करा" },
-        es: { timer: "Temporizador", bmi: "IMC Calculadora", bmr: "TMB Calculadora", water: "Meta de Agua", b: "Verificar", start: "Comenzar" }
-    };
-
-    function updateLang() {
-        let l = document.getElementById('lang').value;
-        document.getElementById('l-timer').innerText = "🏋️ " + ui[l].timer;
-        document.getElementById('l-bmi').innerText = "⚖️ " + ui[l].bmi;
-        document.getElementById('l-bmr').innerText = "🧬 " + ui[l].bmr;
-        document.getElementById('l-water').innerText = "💧 " + ui[l].water;
-        document.getElementById('b-bmi').innerText = ui[l].b;
-        document.getElementById('b-bmr').innerText = ui[l].b;
-        document.getElementById('b-water').innerText = ui[l].b;
-        document.getElementById('b-timer').innerText = ui[l].start;
-    }
-
-    function startTimer() {
-        let s = 30;
-        let t = document.getElementById('time');
-        let i = setInterval(() => {
-            s--; t.innerText = s;
-            if(s<=0){ clearInterval(i); alert("Time Up!"); t.innerText="30"; }
+    function triggerTimer(name) {
+        alert("Preparing " + name + "... Interstitial Ad will trigger here.");
+        let timerDiv = document.getElementById('countdown');
+        timerDiv.style.display = 'block';
+        let timeLeft = 30;
+        let interval = setInterval(() => {
+            timeLeft--;
+            timerDiv.innerText = timeLeft;
+            if(timeLeft <= 0) {
+                clearInterval(interval);
+                alert("Session Complete!");
+                timerDiv.style.display = 'none';
+                timerDiv.innerText = "30";
+            }
         }, 1000);
     }
 
-    function calcBMI() {
-        let weight = document.getElementById('w').value, height = document.getElementById('h').value/100;
-        if(weight>0 && height>0){
-            let res = document.getElementById('r-bmi');
-            res.style.display = "block";
-            res.innerText = "BMI: " + (weight/(height*height)).toFixed(2);
+    function calculateBMI() {
+        let weight = document.getElementById('w').value;
+        let height = document.getElementById('h').value / 100;
+        if(weight > 0 && height > 0) {
+            let bmi = (weight / (height * height)).toFixed(2);
+            document.getElementById('bmi-res').innerText = "Aapka BMI: " + bmi;
         }
-    }
-
-    function calcBMR() {
-        let w = document.getElementById('bw').value, h = document.getElementById('bh').value, a = document.getElementById('ba').value;
-        if(w>0){
-            let res = document.getElementById('r-bmr');
-            res.style.display = "block";
-            res.innerText = "BMR: " + (10*w + 6.25*h - 5*a + 5) + " kcal/day";
-        }
-    }
-
-    function calcWater() {
-        let res = document.getElementById('r-water');
-        res.style.display = "block";
-        res.innerText = "Goal: 3.8 Liters (12-15 Glasses)";
     }
 </script>
 
