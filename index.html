@@ -3,69 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fitness Pro Web App</title>
+    <title>FitPro - All-in-One Fitness Tool</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-align: center; padding: 20px; background-color: #f0f2f5; color: #333; }
-        .container { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); display: inline-block; max-width: 400px; width: 90%; margin-top: 20px; }
-        h1 { color: #2c3e50; }
-        input { padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; width: 100%; box-sizing: border-box; font-size: 16px; }
-        button { padding: 12px; background: #27ae60; color: white; border: none; border-radius: 8px; cursor: pointer; width: 100%; font-size: 18px; font-weight: bold; margin-top: 10px; }
-        button:hover { background: #219150; }
-        #ad-slot { margin: 20px auto; min-height: 100px; border: 2px dashed #3498db; background: #ebf5fb; display: flex; align-items: center; justify-content: center; color: #3498db; font-weight: bold; border-radius: 10px; }
-        .result-box { margin-top: 20px; padding: 15px; border-radius: 8px; background: #e8f8f5; color: #117a65; font-weight: bold; display: none; }
+        body { font-family: 'Segoe UI', sans-serif; text-align: center; margin: 0; background: #f4f7f6; color: #333; }
+        header { background: #2c3e50; color: white; padding: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .ad-banner-small { width: 100%; min-height: 50px; background: #fff; margin: 10px 0; border: 1px dashed #3498db; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #3498db; }
+        .ad-native-box { width: 90%; max-width: 600px; min-height: 150px; background: #fff; margin: 20px auto; border: 2px dashed #e67e22; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #e67e22; font-weight: bold; }
+        .container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; padding: 20px; }
+        .card { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 100%; max-width: 350px; }
+        input { width: 80%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; }
+        button { width: 85%; padding: 12px; background: #27ae60; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
+        .workout-list { text-align: left; margin-top: 10px; padding-left: 15px; }
+        footer { margin-top: 30px; padding: 20px; background: #ddd; font-size: 14px; }
     </style>
 </head>
 <body>
 
-    <h1>Fitness Pro Web</h1>
+    <header><h1>FitPro Web Dashboard</h1></header>
 
-    <div id="ad-slot">
-        🚀 Ads Loading Space (Earning Area)
-    </div>
+    <div class="ad-banner-small" id="ad-top-small">🚀 Chhoti Banner Ad Yahan Aayegi</div>
 
     <div class="container">
-        <h3>BMI Calculator</h3>
-        <p style="font-size: 14px; color: #666;">Apna wajan aur height daalein</p>
         
-        <input type="number" id="weight" placeholder="Wajan (kg) jaise: 70">
-        <input type="number" id="height" placeholder="Height (cm) jaise: 170">
-        
-        <button onclick="calculate()">BMI Check Karein</button>
-        
-        <div id="result-box" class="result-box">
-            <span id="bmi-val"></span>
-            <br>
-            <span id="bmi-msg"></span>
+        <div class="card">
+            <h3>⚖️ BMI Calculator</h3>
+            <input type="number" id="w" placeholder="Wajan (kg)">
+            <input type="number" id="h" placeholder="Height (cm)">
+            <button onclick="calcBMI()">Check BMI</button>
+            <p id="res-bmi"></p>
         </div>
+
+        <div class="card">
+            <h3>💧 Water Reminder</h3>
+            <p>Din bhar mein kitna paani piyein?</p>
+            <input type="number" id="age" placeholder="Apni Age daalein">
+            <button onclick="calcWater()" style="background: #3498db;">Water Goal Check</button>
+            <p id="res-water"></p>
+        </div>
+
+        <div class="ad-native-box" id="ad-native-1">🔥 Nadi (Native) Ad Yahan Dikhegi</div>
+
+        <div class="card">
+            <h3>🔥 Calorie Goal</h3>
+            <p>Weight maintain karne ke liye calories:</p>
+            <input type="number" id="cw" placeholder="Current Weight (kg)">
+            <button onclick="calcCal()" style="background: #e67e22;">Calculate Calories</button>
+            <p id="res-cal"></p>
+        </div>
+
+        <div class="card">
+            <h3>🏃 Workout Plan</h3>
+            <ul class="workout-list">
+                <li>✅ Pushups: 3 Sets x 12</li>
+                <li>✅ Squats: 3 Sets x 15</li>
+                <li>✅ Plank: 1 Minute</li>
+                <li>✅ Running: 15 Minutes</li>
+            </ul>
+        </div>
+
     </div>
 
+    <div class="ad-banner-small" id="ad-bottom-small">🚀 Chhoti Banner Ad Niche Aayegi</div>
+
+    <footer>&copy; 2026 FitPro Web - Quick All Doc Pro Team</footer>
+
     <script>
-        function calculate() {
-            let w = document.getElementById('weight').value;
-            let h = document.getElementById('height').value / 100;
-            
+        function calcBMI() {
+            let w = document.getElementById('w').value;
+            let h = document.getElementById('h').value / 100;
             if(w > 0 && h > 0) {
                 let bmi = (w / (h * h)).toFixed(2);
-                let msg = "";
-                let color = "";
+                document.getElementById('res-bmi').innerText = "BMI: " + bmi;
+            }
+        }
 
-                if(bmi < 18.5) { msg = "Aapka wajan kam hai (Underweight)"; color = "#f39c12"; }
-                else if(bmi < 25) { msg = "Badhiya! Aap fit hain (Normal)"; color = "#27ae60"; }
-                else { msg = "Wajan thoda zyada hai (Overweight)"; color = "#e74c3c"; }
+        function calcWater() {
+            let age = document.getElementById('age').value;
+            if(age > 0) {
+                let glass = (age < 18) ? 8 : 12;
+                document.getElementById('res-water').innerText = "Aapko din mein " + glass + " glass paani peena chahiye.";
+            }
+        }
 
-                let resBox = document.getElementById('result-box');
-                resBox.style.display = "block";
-                resBox.style.backgroundColor = color + "22"; // Light version of color
-                resBox.style.color = color;
-                
-                document.getElementById('bmi-val').innerText = "BMI: " + bmi;
-                document.getElementById('bmi-msg').innerText = msg;
-            } else {
-                alert("Kripya sahi detail daalein!");
+        function calcCal() {
+            let w = document.getElementById('cw').value;
+            if(w > 0) {
+                let cal = w * 30;
+                document.getElementById('res-cal').innerText = "Daily Goal: " + cal + " Calories";
             }
         }
     </script>
-
 </body>
 </html>
-
