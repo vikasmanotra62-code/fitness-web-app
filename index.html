@@ -3,107 +3,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FitPro Max - Ultimate Fitness Tool</title>
+    <title>FitPro Max - Ultimate Fitness Dashboard</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; text-align: center; margin: 0; background: #f0f4f8; color: #333; }
-        header { background: #1a252f; color: white; padding: 20px; font-size: 24px; font-weight: bold; }
-        .ad-small { height: 60px; background: #fff; margin: 10px auto; border: 1px dashed #3498db; width: 95%; display: flex; align-items: center; justify-content: center; color: #3498db; border-radius: 5px; }
-        .ad-native { min-height: 200px; background: #fff; margin: 20px auto; border: 2px dashed #e67e22; width: 90%; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #e67e22; font-weight: bold; }
-        .container { padding: 20px; display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; }
-        .card { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); width: 100%; max-width: 400px; }
+        body { font-family: 'Segoe UI', sans-serif; text-align: center; margin: 0; background: #f0f2f5; color: #333; }
+        header { background: #2c3e50; color: white; padding: 20px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
+        .ad-banner { width: 100%; min-height: 50px; background: #fff; margin: 10px 0; border: 1px dashed #3498db; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #3498db; }
+        .ad-native-big { width: 95%; max-width: 700px; min-height: 200px; background: #fff; margin: 20px auto; border: 2px dashed #e67e22; border-radius: 15px; display: flex; align-items: center; justify-content: center; color: #e67e22; font-weight: bold; }
+        .main-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; padding: 20px; max-width: 1200px; margin: 0 auto; }
+        .card { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); transition: 0.3s; }
+        h3 { color: #2c3e50; margin-top: 0; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+        input, select { width: 85%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 10px; font-size: 16px; }
+        button { width: 90%; padding: 12px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 16px; color: white; }
         
-        /* Timer Styling */
-        .timer-display { font-size: 50px; font-weight: bold; color: #e74c3c; margin: 15px 0; }
-        .ex-name { font-size: 22px; color: #2c3e50; font-weight: bold; }
-        select { padding: 10px; width: 80%; border-radius: 8px; border: 1px solid #ccc; margin-bottom: 15px; font-size: 16px; }
-        .btn-start { background: #27ae60; color: white; padding: 15px 30px; border: none; border-radius: 50px; font-size: 18px; cursor: pointer; transition: 0.3s; }
-        .btn-start:hover { background: #219150; transform: scale(1.05); }
+        /* Feature Colors */
+        .btn-timer { background: #e74c3c; }
+        .btn-bmi { background: #34495e; }
+        .btn-water { background: #3498db; }
+        .btn-cal { background: #e67e22; }
         
-        .footer { background: #1a252f; color: white; padding: 20px; margin-top: 40px; font-size: 12px; }
+        #timer-box { font-size: 45px; font-weight: bold; color: #e74c3c; margin: 15px 0; background: #fdf2f2; border-radius: 10px; padding: 10px; }
+        .result-text { font-weight: bold; margin-top: 15px; color: #16a085; }
+        footer { background: #2c3e50; color: white; padding: 30px; margin-top: 50px; font-size: 14px; }
     </style>
 </head>
 <body>
 
-<header>FitPro Max Dashboard</header>
+    <header>FitPro Max - All-in-One Dashboard</header>
 
-<div class="ad-small" id="ad-top">Ads Loading... (Banner 320x50)</div>
+    <div class="ad-banner">🚀 Top Banner Ad Slot</div>
 
-<div class="container">
-    
-    <div class="card" style="max-width: 600px;">
-        <h3>🏋️ Intense Workout Timer</h3>
-        <p>Exercise chunein aur Start karein (30 Sec Countdown)</p>
+    <div class="main-grid">
         
-        <select id="exerciseSelect">
-            <option value="Pushups">Pushups (Chest & Arms)</option>
-            <option value="Squats">Squats (Legs)</option>
-            <option value="Plank">Plank (Abs/Core)</option>
-            <option value="Jumping Jacks">Jumping Jacks (Cardio)</option>
-            <option value="Burpees">Burpees (Full Body)</option>
-            <option value="Lunges">Lunges (Lower Body)</option>
-        </select>
+        <div class="card">
+            <h3>🏋️ Workout Timer</h3>
+            <p>Exercise chunein (30 sec set):</p>
+            <select id="exSelect">
+                <option value="Pushups">Pushups</option>
+                <option value="Squats">Squats</option>
+                <option value="Plank">Plank</option>
+                <option value="Jumping Jacks">Jumping Jacks</option>
+            </select>
+            <div id="timer-box">30</div>
+            <button class="btn-timer" onclick="showAdAndStart()">Start 30s Timer</button>
+            <p id="timer-status" style="margin-top:10px; font-weight:bold;"></p>
+        </div>
 
-        <div class="ex-name" id="currentExDisplay">Tayyar Ho Jaiye!</div>
-        <div class="timer-display" id="timer">30</div>
-        
-        <button class="btn-start" onclick="startWorkout()">🚀 START EXERCISE</button>
+        <div class="card">
+            <h3>⚖️ BMI Calculator</h3>
+            <input type="number" id="weight" placeholder="Wajan (kg)">
+            <input type="number" id="height" placeholder="Height (cm)">
+            <button class="btn-bmi" onclick="calculateBMI()">Calculate BMI</button>
+            <p id="res-bmi" class="result-text"></p>
+        </div>
+
+        <div class="card">
+            <h3>💧 Water Reminder</h3>
+            <input type="number" id="age" placeholder="Apni Age">
+            <button class="btn-water" onclick="calculateWater()">Check Water Goal</button>
+            <p id="res-water" class="result-text"></p>
+        </div>
+
     </div>
 
-    <div class="ad-native" id="ad-mid">🔥 Native Ad / Nadi Ad Yahan Lagegi</div>
+    <div class="ad-native-big">🔥 BADI NADI (NATIVE) AD SPACE</div>
 
-    <div class="card">
-        <h3>⚖️ BMI Checker</h3>
-        <input type="number" id="w" placeholder="Weight (kg)" style="padding:10px; width:80%; margin:5px; border-radius:5px; border:1px solid #ddd;">
-        <input type="number" id="h" placeholder="Height (cm)" style="padding:10px; width:80%; margin:5px; border-radius:5px; border:1px solid #ddd;">
-        <button onclick="calcBMI()" style="background:#34495e; color:white; padding:10px; width:85%; border:none; border-radius:5px; margin-top:10px;">Check BMI</button>
-        <p id="res-bmi" style="font-weight:bold; margin-top:10px;"></p>
+    <div class="main-grid">
+        <div class="card">
+            <h3>🔥 Calorie Calculator</h3>
+            <input type="number" id="cWeight" placeholder="Wajan (kg)">
+            <button class="btn-cal" onclick="calculateCal()">Check Calories</button>
+            <p id="res-cal" class="result-text"></p>
+        </div>
+
+        <div class="card">
+            <h3>👟 Steps Goal</h3>
+            <select id="activity">
+                <option value="5000">Kam (Lazy)</option>
+                <option value="8000">Normal (Active)</option>
+                <option value="12000">Athletic</option>
+            </select>
+            <button style="background: #27ae60;" onclick="checkSteps()">Set Steps Goal</button>
+            <p id="res-steps" class="result-text"></p>
+        </div>
     </div>
 
-</div>
+    <div class="ad-banner">🚀 Bottom Banner Ad Slot</div>
 
-<div class="ad-small" id="ad-bottom">Ads Loading... (Banner 320x50)</div>
+    <footer>&copy; 2026 FitPro Max Web App - Quick All Doc Pro</footer>
 
-<div class="footer">
-    Developed for Chrome - Powered by Quick All Doc Pro <br>
-    &copy; 2026 Yuvi Fitness Web App
-</div>
-
-<script>
-    // TIMER LOGIC
-    let timeLeft = 30;
-    let timerId = null;
-
-    function startWorkout() {
-        // Reset timer if already running
-        clearInterval(timerId);
-        timeLeft = 30;
-        
-        let exName = document.getElementById('exerciseSelect').value;
-        document.getElementById('currentExDisplay').innerText = "Abhi Karein: " + exName;
-        document.getElementById('timer').innerText = timeLeft;
-
-        timerId = setInterval(() => {
-            timeLeft--;
-            document.getElementById('timer').innerText = timeLeft;
-
-            if (timeLeft <= 0) {
-                clearInterval(timerId);
-                document.getElementById('currentExDisplay').innerText = "Time Up! Agli Exercise Chunein.";
-                alert(exName + " khatam! Agli exercise shuru karein.");
-            }
-        }, 1000);
-    }
-
-    // BMI LOGIC
-    function calcBMI() {
-        let weight = document.getElementById('w').value;
-        let height = document.getElementById('h').value / 100;
-        if(weight > 0 && height > 0) {
-            let bmi = (weight / (height * height)).toFixed(2);
-            document.getElementById('res-bmi').innerText = "Aapka BMI: " + bmi;
+    <script>
+        // INTERSTITIAL AD TRIGGER & TIMER
+        let countdown;
+        function showAdAndStart() {
+            // Yahan hum Adsterra ki Interstitial ad ka pop-up script daalenge
+            console.log("Interstitial Ad Triggered!");
+            
+            // Abhi ke liye hum timer shuru kar rahe hain
+            startTimer();
         }
-    }
-</script>
 
+        function startTimer() {
+            clearInterval(countdown);
+            let seconds = 30;
+            let ex = document.getElementById('exSelect').value;
+            document.getElementById('timer-status').innerText = "Kariye: " + ex;
+            
+            countdown = setInterval(function() {
+                seconds--;
+                document.getElementById('timer-box').innerText = seconds;
+                if (seconds <= 0) {
+                    clearInterval(countdown);
+                    document.getElementById('timer-status').innerText = "Session Complete!";
+                    alert(ex + " ka 30s session pura hua!");
+                }
+            }, 1000);
+        }
+
+        function calculateBMI() {
+            let w = document.getElementById('weight').value;
+            let h = document.getElementById('height').value / 100;
+            if(w > 0 && h > 0) {
+                document.getElementById('res-bmi').innerText = "BMI: " + (w / (h * h)).toFixed(2);
+            }
+        }
+
+        function calculateWater() {
+            let a = document.getElementById('age').value;
+            if(a > 0) document.getElementById('res-water').innerText = (a < 18) ? "Target: 2.5L" : "Target: 3.5L";
+        }
+
+        function calculateCal() {
+            let cw = document.getElementById('cWeight').value;
+            if(cw > 0) document.getElementById('res-cal').innerText = "Daily: " + (cw * 32) + " Cal";
+        }
+
+        function checkSteps() {
+            document.getElementById('res-steps').innerText = "Target: " + document.getElementById('activity').value + " Steps";
+        }
+    </script>
 </body>
 </html>
