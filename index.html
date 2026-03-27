@@ -182,6 +182,19 @@
         document.getElementById('i-step-p').innerText = t.stepP;
         document.getElementById('i-nut-t').innerText = t.nutT;
         document.getElementById('i-nut-p').innerText = t.nutP;
+                // Footer links language update logic
+        const fLinks = document.querySelectorAll('#footer-links a');
+        const fTrans = { 
+            en: ["About Us", "Privacy Policy", "Terms", "Contact"], 
+            hi: ["हमारे बारे में", "गोपनीयता नीति", "नियम", "संपर्क"], 
+            mr: ["आमच्याबद्दल", "गोपनीयता", "अटी", "संपर्क"],
+            es: ["Sobre nosotros", "Privacidad", "Términos", "Contacto"] 
+        };
+        if(fLinks.length > 0) {
+            fLinks[0].innerText = fTrans[l][0]; fLinks[1].innerText = fTrans[l][1]; 
+            fLinks[2].innerText = fTrans[l][2]; fLinks[3].innerText = fTrans[l][3];
+        }
+        
     }
 
     function startTimer() {
