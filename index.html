@@ -238,5 +238,11 @@
         r.style.display="block"; r.innerText="Target: 3.5 L";
     }
 </script>
+    <script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js');
+  }
+    </script>
+    
 </body>
 </html>
