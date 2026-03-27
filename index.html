@@ -51,7 +51,11 @@
 <body>
 
 <header>
-    <div class="logo">FitPro <span style="color:var(--accent)">MAX</span></div>
+    <div class="logo" style="display: flex; align-items: center; gap: 10px;">
+    <img src="Logo.png" alt="Logo" style="height: 35px; border-radius: 6px; object-fit: contain;">
+    <span style="font-weight: 800;">FitPro <span style="color:var(--accent)">MAX</span></span>
+    </div>
+    
     <select class="lang-select" id="lang" onchange="updateLang()">
         <option value="en">Language 🌐</option>
         <option value="en">English</option>
